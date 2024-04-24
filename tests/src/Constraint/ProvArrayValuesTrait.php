@@ -3,7 +3,7 @@
 /*
  * This file is part of phptailors/phpunit-extensions.
  *
- * Copyright (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+ * Copyright (c) Paweł Tomulik <pawel@tomulik.pl>
  *
  * View the LICENSE file for full copyright and license information.
  */
@@ -19,14 +19,14 @@ use PHPUnit\Framework\Constraint\Constraint;
  */
 trait ProvArrayValuesTrait
 {
+    // @codeCoverageIgnoreStart
+
     /**
      * @param mixed $args
      */
-    abstract public function createConstraint(...$args): Constraint;
+    abstract public static function createConstraint(...$args): Constraint;
 
-    // @codeCoverageIgnoreStart
-
-    public function provArrayValuesIdenticalTo(): array
+    public static function provArrayValuesIdenticalTo(): array
     {
         return [
             'ProvArrayValuesTrait.php:'.__LINE__ => [
@@ -69,7 +69,7 @@ trait ProvArrayValuesTrait
                 'expect' => [
                     'foo' => 'FOO',
                     'int' => 21,
-                    'arr' => $this->createConstraint([
+                    'arr' => static::createConstraint([
                         'bar' => 'BAR',
                         'int' => 20,
                     ]),
@@ -91,10 +91,10 @@ trait ProvArrayValuesTrait
                 'expect' => [
                     'foo' => 'FOO',
                     'int' => 21,
-                    'arr' => $this->createConstraint([
+                    'arr' => static::createConstraint([
                         'bar' => 'BAR',
                         'int' => 20,
-                        'arr' => $this->createConstraint([
+                        'arr' => static::createConstraint([
                             'frd' => 'FRD',
                         ]),
                     ]),
@@ -119,7 +119,7 @@ trait ProvArrayValuesTrait
             'ProvArrayValuesTrait.php:'.__LINE__ => [
                 'expect' => [
                     'arr' => [
-                        $this->createConstraint(['foo' => 'FOO']),
+                        static::createConstraint(['foo' => 'FOO']),
                     ],
                 ],
                 'actual' => [
