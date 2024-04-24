@@ -3,7 +3,7 @@
 /*
  * This file is part of phptailors/phpunit-extensions.
  *
- * Copyright (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+ * Copyright (c) Paweł Tomulik <pawel@tomulik.pl>
  *
  * View the LICENSE file for full copyright and license information.
  */
@@ -32,7 +32,7 @@ final class KsortedArrayEqualToTraitTest extends TestCase
     /**
      * @param mixed $args
      */
-    public function createConstraint(...$args): KsortedArrayEqualTo
+    public static function createConstraint(...$args): KsortedArrayEqualTo
     {
         return KsortedArrayEqualTo::create(...$args);
     }
@@ -43,7 +43,7 @@ final class KsortedArrayEqualToTraitTest extends TestCase
      *
      * @param mixed $actual
      */
-    public function testKsortedArrayEqualToSucceeds(array $expect, $actual)
+    public function testKsortedArrayEqualToSucceeds(array $expect, $actual, string $string)
     {
         self::assertThat($actual, self::ksortedArrayEqualTo($expect));
     }
@@ -54,7 +54,7 @@ final class KsortedArrayEqualToTraitTest extends TestCase
      *
      * @param mixed $actual
      */
-    public function testAssertKsortedArrayEqualToSucceeds(array $expect, $actual)
+    public function testAssertKsortedArrayEqualToSucceeds(array $expect, $actual, string $string)
     {
         self::assertKsortedArrayEqualTo($expect, $actual);
     }
@@ -64,7 +64,7 @@ final class KsortedArrayEqualToTraitTest extends TestCase
      *
      * @param mixed $actual
      */
-    public function testAssertKsortedArrayEqualToFails(array $expect, $actual)
+    public function testAssertKsortedArrayEqualToFails(array $expect, $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.
             'Failed asserting that .+ is an array '.
@@ -80,7 +80,7 @@ final class KsortedArrayEqualToTraitTest extends TestCase
      *
      * @param mixed $actual
      */
-    public function testNotKsortedArrayEqualToSucceeds(array $expect, $actual)
+    public function testNotKsortedArrayEqualToSucceeds(array $expect, $actual, string $string)
     {
         self::assertThat($actual, self::logicalNot(self::ksortedArrayEqualTo($expect)));
     }
@@ -90,7 +90,7 @@ final class KsortedArrayEqualToTraitTest extends TestCase
      *
      * @param mixed $actual
      */
-    public function testAssertNotKsortedArrayEqualToSucceeds(array $expect, $actual)
+    public function testAssertNotKsortedArrayEqualToSucceeds(array $expect, $actual, string $string)
     {
         self::assertNotKsortedArrayEqualTo($expect, $actual);
     }
@@ -101,7 +101,7 @@ final class KsortedArrayEqualToTraitTest extends TestCase
      *
      * @param mixed $actual
      */
-    public function testAssertNotKsortedArrayEqualToFails(array $expect, $actual)
+    public function testAssertNotKsortedArrayEqualToFails(array $expect, $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.
             'Failed asserting that .+ fails to be an array '.

@@ -3,7 +3,7 @@
 /*
  * This file is part of phptailors/phpunit-extensions.
  *
- * Copyright (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+ * Copyright (c) Paweł Tomulik <pawel@tomulik.pl>
  *
  * View the LICENSE file for full copyright and license information.
  */
@@ -13,8 +13,11 @@ namespace Tailors\PHPUnit\Arrays;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\Constraint\Operator;
+use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\Comparator\ComparisonFailure;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 use Tailors\PHPUnit\CircularDependencyException;
+use Tailors\PHPUnit\Common\Exporter;
 use Tailors\PHPUnit\Common\ShortFailureDescriptionTrait;
 use Tailors\PHPUnit\Comparator\ComparatorInterface;
 use Tailors\PHPUnit\Comparator\ComparatorWrapperInterface;
@@ -81,8 +84,8 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
      * @param string $description
      * @param bool   $returnResult
      *
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      * @throws CircularDependencyException
      */
     final public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
@@ -100,8 +103,8 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
                 $f = new ComparisonFailure(
                     $this->expected,
                     $other,
-                    $this->exporter()->export($this->ksorted($this->expected)),
-                    $this->exporter()->export($this->ksorted($other))
+                    Exporter::export($this->ksorted($this->expected), true),
+                    Exporter::export($this->ksorted($other), true)
                 );
             }
 

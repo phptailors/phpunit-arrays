@@ -3,7 +3,7 @@
 /*
  * This file is part of phptailors/phpunit-extensions.
  *
- * Copyright (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+ * Copyright (c) Paweł Tomulik <pawel@tomulik.pl>
  *
  * View the LICENSE file for full copyright and license information.
  */
@@ -50,7 +50,7 @@ final class KsortedArrayEqualToTest extends KsortedConstraintTestCase
      *
      * @param mixed $actual
      */
-    public function testKsortedArrayEqualToSucceeds(array $expect, $actual): void
+    public function testKsortedArrayEqualToSucceeds(array $expect, $actual, string $string): void
     {
         parent::examineConstraintMatchSucceeds([$expect], $actual);
     }
@@ -72,7 +72,7 @@ final class KsortedArrayEqualToTest extends KsortedConstraintTestCase
      *
      * @param mixed $actual
      */
-    public function testNotKsortedArrayEqualToSucceeds(array $expect, $actual): void
+    public function testNotKsortedArrayEqualToSucceeds(array $expect, $actual, string $string): void
     {
         parent::examineNotConstraintMatchSucceeds([$expect], $actual);
     }
