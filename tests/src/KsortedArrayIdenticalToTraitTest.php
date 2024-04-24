@@ -10,6 +10,8 @@
 
 namespace Tailors\PHPUnit;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Tailors\PHPUnit\Constraint\KsortedArrayIdenticalTo;
@@ -18,12 +20,13 @@ use Tailors\PHPUnit\Constraint\ProvKsortedArrayTrait;
 /**
  * @small
  *
- * @covers \Tailors\PHPUnit\KsortedArrayIdenticalToTrait
- *
  * @internal This class is not covered by the backward compatibility promise
  *
  * @psalm-internal Tailors\PHPUnit
+ *
+ * @coversNothing
  */
+#[CoversClass(KsortedArrayIdenticalToTrait::class)]
 final class KsortedArrayIdenticalToTraitTest extends TestCase
 {
     use KsortedArrayIdenticalToTrait;
@@ -38,31 +41,28 @@ final class KsortedArrayIdenticalToTraitTest extends TestCase
     }
 
     /**
-     * @dataProvider provKsortedArrayIdenticalTo
-     *
      * @param mixed $actual
      */
+    #[DataProvider('provKsortedArrayIdenticalTo')]
     public function testKsortedArrayIdenticalToSucceeds(array $expect, $actual, string $string)
     {
         self::assertThat($actual, self::ksortedArrayIdenticalTo($expect));
     }
 
     /**
-     * @dataProvider provKsortedArrayIdenticalTo
-     *
      * @param mixed $actual
      */
+    #[DataProvider('provKsortedArrayIdenticalTo')]
     public function testAssertKsortedArrayIdenticalToSucceeds(array $expect, $actual, string $string)
     {
         self::assertKsortedArrayIdenticalTo($expect, $actual);
     }
 
     /**
-     * @dataProvider provKsortedArrayNotEqualTo
-     * @dataProvider provKsortedArrayEqualButNotIdenticalTo
-     *
      * @param mixed $actual
      */
+    #[DataProvider('provKsortedArrayNotEqualTo')]
+    #[DataProvider('provKsortedArrayEqualButNotIdenticalTo')]
     public function testAssertKsortedArrayIdenticalToFails(array $expect, $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.
@@ -75,31 +75,28 @@ final class KsortedArrayIdenticalToTraitTest extends TestCase
     }
 
     /**
-     * @dataProvider provKsortedArrayNotEqualTo
-     *
      * @param mixed $actual
      */
+    #[DataProvider('provKsortedArrayNotEqualTo')]
     public function testNotKsortedArrayIdenticalToSucceeds(array $expect, $actual, string $string)
     {
         self::assertThat($actual, self::logicalNot(self::ksortedArrayIdenticalTo($expect)));
     }
 
     /**
-     * @dataProvider provKsortedArrayNotEqualTo
-     * @dataProvider provKsortedArrayEqualButNotIdenticalTo
-     *
      * @param mixed $actual
      */
+    #[DataProvider('provKsortedArrayNotEqualTo')]
+    #[DataProvider('provKsortedArrayEqualButNotIdenticalTo')]
     public function testAssertNotKsortedArrayIdenticalToSucceeds(array $expect, $actual, string $string)
     {
         self::assertNotKsortedArrayIdenticalTo($expect, $actual);
     }
 
     /**
-     * @dataProvider provKsortedArrayIdenticalTo
-     *
      * @param mixed $actual
      */
+    #[DataProvider('provKsortedArrayIdenticalTo')]
     public function testAssertNotKsortedArrayIdenticalToFails(array $expect, $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.

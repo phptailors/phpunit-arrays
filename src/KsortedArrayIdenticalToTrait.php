@@ -13,7 +13,6 @@ namespace Tailors\PHPUnit;
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\ExpectationFailedException;
-use SebastianBergmann\RecursionContext\InvalidArgumentException;
 use Tailors\PHPUnit\Constraint\KsortedArrayIdenticalTo;
 
 trait KsortedArrayIdenticalToTrait
@@ -26,7 +25,6 @@ trait KsortedArrayIdenticalToTrait
      * @param string     $message
      *
      * @throws ExpectationFailedException
-     * @throws InvalidArgumentException
      */
     abstract public static function assertThat($value, Constraint $constraint, string $message = ''): void;
 
@@ -39,7 +37,6 @@ trait KsortedArrayIdenticalToTrait
      *
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
-     * @throws \Tailors\PHPUnit\InvalidArgumentException
      */
     public static function assertKsortedArrayIdenticalTo(
         array $expected,
@@ -58,7 +55,6 @@ trait KsortedArrayIdenticalToTrait
      *
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
-     * @throws \Tailors\PHPUnit\InvalidArgumentException
      */
     public static function assertNotKsortedArrayIdenticalTo(
         array $expected,
@@ -73,7 +69,7 @@ trait KsortedArrayIdenticalToTrait
      *
      * @param array $expected expected array
      *
-     * @throws \Tailors\PHPUnit\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function ksortedArrayIdenticalTo(array $expected): KsortedArrayIdenticalTo
     {
