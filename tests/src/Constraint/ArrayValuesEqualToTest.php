@@ -3,7 +3,7 @@
 /*
  * This file is part of phptailors/phpunit-extensions.
  *
- * Copyright (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+ * Copyright (c) Paweł Tomulik <pawel@tomulik.pl>
  *
  * View the LICENSE file for full copyright and license information.
  */
@@ -48,7 +48,7 @@ final class ArrayValuesEqualToTest extends ConstraintTestCase
         return ArrayValuesEqualTo::class;
     }
 
-    public function createConstraint(...$args): Constraint
+    public static function createConstraint(...$args): Constraint
     {
         return ArrayValuesEqualTo::create(...$args);
     }
@@ -59,7 +59,7 @@ final class ArrayValuesEqualToTest extends ConstraintTestCase
      *
      * @param mixed $actual
      */
-    public function testArrayValuesEqualToSucceeds(array $expect, $actual): void
+    public function testArrayValuesEqualToSucceeds(array $expect, $actual, string $string): void
     {
         parent::examineValuesMatchSucceeds($expect, $actual);
     }
@@ -81,7 +81,7 @@ final class ArrayValuesEqualToTest extends ConstraintTestCase
      *
      * @param mixed $actual
      */
-    public function testNotArrayValuesEqualToSucceeds(array $expect, $actual): void
+    public function testNotArrayValuesEqualToSucceeds(array $expect, $actual, string $string): void
     {
         parent::examineNotValuesMatchSucceeds($expect, $actual);
     }
