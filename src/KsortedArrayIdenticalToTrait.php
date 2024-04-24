@@ -3,7 +3,7 @@
 /*
  * This file is part of phptailors/phpunit-extensions.
  *
- * Copyright (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+ * Copyright (c) Paweł Tomulik <pawel@tomulik.pl>
  *
  * View the LICENSE file for full copyright and license information.
  */
@@ -12,6 +12,7 @@ namespace Tailors\PHPUnit;
 
 use PHPUnit\Framework\Constraint\Constraint;
 use PHPUnit\Framework\Constraint\LogicalNot;
+use PHPUnit\Framework\ExpectationFailedException;
 use Tailors\PHPUnit\Constraint\KsortedArrayIdenticalTo;
 
 trait KsortedArrayIdenticalToTrait
@@ -23,8 +24,7 @@ trait KsortedArrayIdenticalToTrait
      * @param Constraint $constraint
      * @param string     $message
      *
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
      */
     abstract public static function assertThat($value, Constraint $constraint, string $message = ''): void;
 
@@ -35,9 +35,8 @@ trait KsortedArrayIdenticalToTrait
      * @param mixed  $actual   actual value
      * @param string $message  ofailure message
      *
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Tailors\PHPUnit\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      */
     public static function assertKsortedArrayIdenticalTo(
         array $expected,
@@ -54,9 +53,8 @@ trait KsortedArrayIdenticalToTrait
      * @param mixed  $actual   actual value
      * @param string $message  ofailure message
      *
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
-     * @throws \Tailors\PHPUnit\InvalidArgumentException
+     * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      */
     public static function assertNotKsortedArrayIdenticalTo(
         array $expected,
@@ -71,7 +69,7 @@ trait KsortedArrayIdenticalToTrait
      *
      * @param array $expected expected array
      *
-     * @throws \Tailors\PHPUnit\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public static function ksortedArrayIdenticalTo(array $expected): KsortedArrayIdenticalTo
     {

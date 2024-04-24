@@ -3,7 +3,7 @@
 /*
  * This file is part of phptailors/phpunit-extensions.
  *
- * Copyright (c) Paweł Tomulik <ptomulik@meil.pw.edu.pl>
+ * Copyright (c) Paweł Tomulik <pawel@tomulik.pl>
  *
  * View the LICENSE file for full copyright and license information.
  */
@@ -19,7 +19,7 @@ trait ProvKsortedArrayTrait
 {
     // @codeCoverageIgnoreStart
 
-    public function provKsortedArrayIdenticalTo(): array
+    public static function provKsortedArrayIdenticalTo(): array
     {
         return [
             'ProvKsortedArrayTrait.php:'.__LINE__ => [
