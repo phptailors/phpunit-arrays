@@ -10,47 +10,51 @@
 
 namespace Tailors\PHPUnit;
 
-use PHPUnit\Framework\Attributes\CoversTrait;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Tailors\PHPUnit\Constraint\ArrayValuesEqualTo;
 use Tailors\PHPUnit\Constraint\ProvArrayValuesTrait;
 
 /**
+ * @small
+ *
+ * @covers \Tailors\PHPUnit\ArrayValuesEqualToTrait
+ *
  * @internal This class is not covered by the backward compatibility promise
  *
  * @psalm-internal Tailors\PHPUnit
  */
-#[CoversTrait(ArrayValuesEqualToTrait::class)]
-#[Small]
 final class ArrayValuesEqualToTraitTest extends TestCase
 {
     use ArrayValuesEqualToTrait;
     use ProvArrayValuesTrait;
 
-    #[\Override]
     public static function createConstraint(mixed ...$args): ArrayValuesEqualTo
     {
         return ArrayValuesEqualTo::create(...$args);
     }
 
-    #[DataProvider('provArrayValuesIdenticalTo')]
-    #[DataProvider('provArrayValuesEqualButNotIdenticalTo')]
+    /**
+     * @dataProvider provArrayValuesIdenticalTo
+     * @dataProvider provArrayValuesEqualButNotIdenticalTo
+     */
     public function testArrayValuesEqualToSucceeds(array $expect, mixed $actual, string $string)
     {
         self::assertThat($actual, self::arrayValuesEqualTo($expect));
     }
 
-    #[DataProvider('provArrayValuesIdenticalTo')]
-    #[DataProvider('provArrayValuesEqualButNotIdenticalTo')]
+    /**
+     * @dataProvider provArrayValuesIdenticalTo
+     * @dataProvider provArrayValuesEqualButNotIdenticalTo
+     */
     public function testAssertArrayValuesEqualToSucceeds(array $expect, mixed $actual, string $string)
     {
         self::assertArrayValuesEqualTo($expect, $actual);
     }
 
-    #[DataProvider('provArrayValuesNotEqualTo')]
+    /**
+     * @dataProvider provArrayValuesNotEqualTo
+     */
     public function testAssertArrayValuesEqualToFails(array $expect, mixed $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.
@@ -62,20 +66,26 @@ final class ArrayValuesEqualToTraitTest extends TestCase
         self::assertArrayValuesEqualTo($expect, $actual, 'Lorem ipsum.');
     }
 
-    #[DataProvider('provArrayValuesNotEqualTo')]
+    /**
+     * @dataProvider provArrayValuesNotEqualTo
+     */
     public function testNotArrayValuesEqualToSucceeds(array $expect, mixed $actual, string $string)
     {
         self::assertThat($actual, self::logicalNot(self::arrayValuesEqualTo($expect)));
     }
 
-    #[DataProvider('provArrayValuesNotEqualTo')]
+    /**
+     * @dataProvider provArrayValuesNotEqualTo
+     */
     public function testAssertNotArrayValuesEqualToSucceeds(array $expect, mixed $actual, string $string)
     {
         self::assertNotArrayValuesEqualTo($expect, $actual);
     }
 
-    #[DataProvider('provArrayValuesIdenticalTo')]
-    #[DataProvider('provArrayValuesEqualButNotIdenticalTo')]
+    /**
+     * @dataProvider provArrayValuesIdenticalTo
+     * @dataProvider provArrayValuesEqualButNotIdenticalTo
+     */
     public function testAssertNotArrayValuesEqualToFails(array $expect, mixed $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.

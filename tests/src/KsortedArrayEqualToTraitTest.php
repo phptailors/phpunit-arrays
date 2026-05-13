@@ -10,47 +10,51 @@
 
 namespace Tailors\PHPUnit;
 
-use PHPUnit\Framework\Attributes\CoversTrait;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Tailors\PHPUnit\Constraint\KsortedArrayEqualTo;
 use Tailors\PHPUnit\Constraint\ProvKsortedArrayTrait;
 
 /**
+ * @small
+ *
+ * @covers \Tailors\PHPUnit\KsortedArrayEqualToTrait
+ *
  * @internal This class is not covered by the backward compatibility promise
  *
  * @psalm-internal Tailors\PHPUnit
  */
-#[CoversTrait(KsortedArrayEqualToTrait::class)]
-#[Small]
 final class KsortedArrayEqualToTraitTest extends TestCase
 {
     use KsortedArrayEqualToTrait;
     use ProvKsortedArrayTrait;
 
-    #[\Override]
     public static function createConstraint(mixed ...$args): KsortedArrayEqualTo
     {
         return KsortedArrayEqualTo::create(...$args);
     }
 
-    #[DataProvider('provKsortedArrayIdenticalTo')]
-    #[DataProvider('provKsortedArrayEqualButNotIdenticalTo')]
+    /**
+     * @dataProvider provKsortedArrayIdenticalTo
+     * @dataProvider provKsortedArrayEqualButNotIdenticalTo
+     */
     public function testKsortedArrayEqualToSucceeds(array $expect, mixed $actual, string $string)
     {
         self::assertThat($actual, self::ksortedArrayEqualTo($expect));
     }
 
-    #[DataProvider('provKsortedArrayIdenticalTo')]
-    #[DataProvider('provKsortedArrayEqualButNotIdenticalTo')]
+    /**
+     * @dataProvider provKsortedArrayIdenticalTo
+     * @dataProvider provKsortedArrayEqualButNotIdenticalTo
+     */
     public function testAssertKsortedArrayEqualToSucceeds(array $expect, mixed $actual, string $string)
     {
         self::assertKsortedArrayEqualTo($expect, $actual);
     }
 
-    #[DataProvider('provKsortedArrayNotEqualTo')]
+    /**
+     * @dataProvider provKsortedArrayNotEqualTo
+     */
     public function testAssertKsortedArrayEqualToFails(array $expect, mixed $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.
@@ -62,20 +66,26 @@ final class KsortedArrayEqualToTraitTest extends TestCase
         self::assertKsortedArrayEqualTo($expect, $actual, 'Lorem ipsum.');
     }
 
-    #[DataProvider('provKsortedArrayNotEqualTo')]
+    /**
+     * @dataProvider provKsortedArrayNotEqualTo
+     */
     public function testNotKsortedArrayEqualToSucceeds(array $expect, mixed $actual, string $string)
     {
         self::assertThat($actual, self::logicalNot(self::ksortedArrayEqualTo($expect)));
     }
 
-    #[DataProvider('provKsortedArrayNotEqualTo')]
+    /**
+     * @dataProvider provKsortedArrayNotEqualTo
+     */
     public function testAssertNotKsortedArrayEqualToSucceeds(array $expect, mixed $actual, string $string)
     {
         self::assertNotKsortedArrayEqualTo($expect, $actual);
     }
 
-    #[DataProvider('provKsortedArrayIdenticalTo')]
-    #[DataProvider('provKsortedArrayEqualButNotIdenticalTo')]
+    /**
+     * @dataProvider provKsortedArrayIdenticalTo
+     * @dataProvider provKsortedArrayEqualButNotIdenticalTo
+     */
     public function testAssertNotKsortedArrayEqualToFails(array $expect, mixed $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.
