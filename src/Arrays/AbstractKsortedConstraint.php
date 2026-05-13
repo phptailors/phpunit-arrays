@@ -33,7 +33,6 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
     /**
      * Returns an instance of ComparatorInterface which implements comparison operator.
      */
-    #[\Override]
     final public function getComparator(): ComparatorInterface
     {
         return $this->comparator;
@@ -42,7 +41,6 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
     /**
      * Returns a string representation of the constraint.
      */
-    #[\Override]
     final public function toString(): string
     {
         return sprintf(
@@ -64,7 +62,6 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
      * @throws ExpectationFailedException
      * @throws CircularDependencyException
      */
-    #[\Override]
     final public function evaluate(mixed $other, string $description = '', bool $returnResult = false): ?bool
     {
         $success = $this->matches($other);
@@ -116,7 +113,6 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
      * @param Operator $operator the $operator of the expression
      * @param mixed    $role     role of $this constraint in the $operator expression
      */
-    #[\Override]
     final protected function toStringInContext(Operator $operator, $role): string
     {
         if ($operator instanceof LogicalNot) {
@@ -135,7 +131,6 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
      *
      * @param mixed $other value or object to evaluate
      */
-    #[\Override]
     final protected function matches($other): bool
     {
         if (!$this->supports($other)) {

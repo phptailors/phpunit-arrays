@@ -11,7 +11,6 @@
 namespace Tailors\PHPUnit\Constraint;
 
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Constraint\Constraint;
@@ -27,31 +26,27 @@ use Tailors\PHPUnit\Comparator\IdentityComparator;
 #[CoversClass(AbstractKsortedConstraint::class)]
 #[CoversClass(KsortedConstraintTestCase::class)]
 #[CoversClass(KsortedArrayIdenticalTo::class)]
-#[CoversTrait(ProvKsortedArrayTrait::class)]
+#[CoversClass(ProvKsortedArrayTrait::class)]
 #[Small]
 final class KsortedArrayIdenticalToTest extends KsortedConstraintTestCase
 {
     use ProvKsortedArrayTrait;
 
-    #[\Override]
     public static function adjective(): string
     {
         return 'identical to';
     }
 
-    #[\Override]
     public static function getConstraintClass(): string
     {
         return KsortedArrayIdenticalTo::class;
     }
 
-    #[\Override]
     public static function getComparatorClass(): string
     {
         return IdentityComparator::class;
     }
 
-    #[\Override]
     public static function createConstraint(...$args): Constraint
     {
         return KsortedArrayIdenticalTo::create(...$args);

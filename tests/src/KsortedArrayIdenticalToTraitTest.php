@@ -10,7 +10,7 @@
 
 namespace Tailors\PHPUnit;
 
-use PHPUnit\Framework\Attributes\CoversTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\ExpectationFailedException;
@@ -23,14 +23,13 @@ use Tailors\PHPUnit\Constraint\ProvKsortedArrayTrait;
  *
  * @psalm-internal Tailors\PHPUnit
  */
-#[CoversTrait(KsortedArrayIdenticalToTrait::class)]
+#[CoversClass(KsortedArrayIdenticalToTrait::class)]
 #[Small]
 final class KsortedArrayIdenticalToTraitTest extends TestCase
 {
     use KsortedArrayIdenticalToTrait;
     use ProvKsortedArrayTrait;
 
-    #[\Override]
     public static function createConstraint(mixed ...$args): KsortedArrayIdenticalTo
     {
         return KsortedArrayIdenticalTo::create(...$args);

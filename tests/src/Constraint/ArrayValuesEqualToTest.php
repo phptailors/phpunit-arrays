@@ -11,7 +11,6 @@
 namespace Tailors\PHPUnit\Constraint;
 
 use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\CoversTrait;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\Constraint\Constraint;
@@ -23,38 +22,33 @@ use Tailors\PHPUnit\Values\ConstraintTestCase;
  * @psalm-internal Tailors\PHPUnit
  */
 #[CoversClass(ArrayValuesEqualTo::class)]
-#[CoversTrait(ProvArrayValuesTrait::class)]
+#[CoversClass(ProvArrayValuesTrait::class)]
 #[CoversClass(ConstraintTestCase::class)]
 #[Small]
 final class ArrayValuesEqualToTest extends ConstraintTestCase
 {
     use ProvArrayValuesTrait;
 
-    #[\Override]
     public static function subject(): string
     {
         return 'an array or ArrayAccess';
     }
 
-    #[\Override]
     public static function selectable(): string
     {
         return 'values';
     }
 
-    #[\Override]
     public static function adjective(): string
     {
         return 'equal to';
     }
 
-    #[\Override]
     public static function getConstraintClass(): string
     {
         return ArrayValuesEqualTo::class;
     }
 
-    #[\Override]
     public static function createConstraint(...$args): Constraint
     {
         return ArrayValuesEqualTo::create(...$args);

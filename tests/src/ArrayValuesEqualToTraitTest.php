@@ -10,7 +10,7 @@
 
 namespace Tailors\PHPUnit;
 
-use PHPUnit\Framework\Attributes\CoversTrait;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\ExpectationFailedException;
@@ -23,14 +23,13 @@ use Tailors\PHPUnit\Constraint\ProvArrayValuesTrait;
  *
  * @psalm-internal Tailors\PHPUnit
  */
-#[CoversTrait(ArrayValuesEqualToTrait::class)]
+#[CoversClass(ArrayValuesEqualToTrait::class)]
 #[Small]
 final class ArrayValuesEqualToTraitTest extends TestCase
 {
     use ArrayValuesEqualToTrait;
     use ProvArrayValuesTrait;
 
-    #[\Override]
     public static function createConstraint(mixed ...$args): ArrayValuesEqualTo
     {
         return ArrayValuesEqualTo::create(...$args);
