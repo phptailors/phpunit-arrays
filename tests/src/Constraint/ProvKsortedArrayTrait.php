@@ -20,7 +20,11 @@ use PHPUnit\Framework\Constraint\Constraint;
 trait ProvKsortedArrayTrait
 {
     // @codeCoverageIgnoreStart
-    abstract public static function createConstraint(mixed ...$args): Constraint;
+
+    /**
+     * @param mixed $args
+     */
+    abstract public static function createConstraint(...$args): Constraint;
 
     public static function provKsortedArrayIdenticalTo(): array
     {

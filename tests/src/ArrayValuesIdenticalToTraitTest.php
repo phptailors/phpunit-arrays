@@ -10,54 +10,71 @@
 
 namespace Tailors\PHPUnit;
 
-use PHPUnit\Framework\Attributes\CoversTrait;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Small;
 use PHPUnit\Framework\ExpectationFailedException;
 use PHPUnit\Framework\TestCase;
 use Tailors\PHPUnit\Constraint\ArrayValuesIdenticalTo;
 use Tailors\PHPUnit\Constraint\ProvArrayValuesTrait;
 
 /**
+ * @small
+ *
+ * @covers \Tailors\PHPUnit\ArrayValuesIdenticalToTrait
+ *
  * @internal This class is not covered by the backward compatibility promise
  *
  * @psalm-internal Tailors\PHPUnit
  */
-#[CoversTrait(ArrayValuesIdenticalToTrait::class)]
-#[Small]
 final class ArrayValuesIdenticalToTraitTest extends TestCase
 {
     use ArrayValuesIdenticalToTrait;
     use ProvArrayValuesTrait;
 
-    #[\Override]
-    public static function createConstraint(mixed ...$args): ArrayValuesIdenticalTo
+    /**
+     * @param mixed $args
+     */
+    public static function createConstraint(...$args): ArrayValuesIdenticalTo
     {
         return ArrayValuesIdenticalTo::create(...$args);
     }
 
-    #[DataProvider('provArrayValuesIdenticalTo')]
-    public function testArrayValuesIdenticalTo(array $expect, mixed $actual, string $string)
+    /**
+     * @dataProvider provArrayValuesIdenticalTo
+     *
+     * @param mixed $actual
+     */
+    public function testArrayValuesIdenticalTo(array $expect, $actual, string $string)
     {
         self::assertThat($actual, self::arrayValuesIdenticalTo($expect));
     }
 
-    #[DataProvider('provArrayValuesNotEqualTo')]
-    #[DataProvider('provArrayValuesEqualButNotIdenticalTo')]
-    public function testLogicalNotArrayValuesIdenticalTo(array $expect, mixed $actual, string $string)
+    /**
+     * @dataProvider provArrayValuesNotEqualTo
+     * @dataProvider provArrayValuesEqualButNotIdenticalTo
+     *
+     * @param mixed $actual
+     */
+    public function testLogicalNotArrayValuesIdenticalTo(array $expect, $actual, string $string)
     {
         self::assertThat($actual, self::logicalNot(self::arrayValuesIdenticalTo($expect)));
     }
 
-    #[DataProvider('provArrayValuesIdenticalTo')]
-    public function testAssertArrayValuesIdenticalTo(array $expect, mixed $actual, string $string)
+    /**
+     * @dataProvider provArrayValuesIdenticalTo
+     *
+     * @param mixed $actual
+     */
+    public function testAssertArrayValuesIdenticalTo(array $expect, $actual, string $string)
     {
         self::assertArrayValuesIdenticalTo($expect, $actual);
     }
 
-    #[DataProvider('provArrayValuesNotEqualTo')]
-    #[DataProvider('provArrayValuesEqualButNotIdenticalTo')]
-    public function testAssertArrayValuesIdenticalToFails(array $expect, mixed $actual, string $string)
+    /**
+     * @dataProvider provArrayValuesNotEqualTo
+     * @dataProvider provArrayValuesEqualButNotIdenticalTo
+     *
+     * @param mixed $actual
+     */
+    public function testAssertArrayValuesIdenticalToFails(array $expect, $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.
             'Failed asserting that .+ is an array or ArrayAccess '.
@@ -68,14 +85,22 @@ final class ArrayValuesIdenticalToTraitTest extends TestCase
         self::assertArrayValuesIdenticalTo($expect, $actual, 'Lorem ipsum.');
     }
 
-    #[DataProvider('provArrayValuesNotEqualTo')]
-    public function testAssertNotArrayValuesIdenticalTo(array $expect, mixed $actual, string $string)
+    /**
+     * @dataProvider provArrayValuesNotEqualTo
+     *
+     * @param mixed $actual
+     */
+    public function testAssertNotArrayValuesIdenticalTo(array $expect, $actual, string $string)
     {
         self::assertNotArrayValuesIdenticalTo($expect, $actual);
     }
 
-    #[DataProvider('provArrayValuesIdenticalTo')]
-    public function testAssertNotArrayValuesIdenticalToFails(array $expect, mixed $actual, string $string)
+    /**
+     * @dataProvider provArrayValuesIdenticalTo
+     *
+     * @param mixed $actual
+     */
+    public function testAssertNotArrayValuesIdenticalToFails(array $expect, $actual, string $string)
     {
         $regexp = '/^Lorem ipsum.\n'.
             'Failed asserting that .+ fails to be an array or ArrayAccess '.

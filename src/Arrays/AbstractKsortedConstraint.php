@@ -15,6 +15,7 @@ use PHPUnit\Framework\Constraint\LogicalNot;
 use PHPUnit\Framework\Constraint\Operator;
 use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\Comparator\ComparisonFailure;
+use SebastianBergmann\RecursionContext\InvalidArgumentException;
 use Tailors\PHPUnit\CircularDependencyException;
 use Tailors\PHPUnit\Common\Exporter;
 use Tailors\PHPUnit\Common\ShortFailureDescriptionTrait;
@@ -28,12 +29,31 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
 {
     use ShortFailureDescriptionTrait;
 
-    final protected function __construct(private ComparatorInterface $comparator, private array $expected, private int $flags) {}
+    /**
+     * @var array
+     */
+    private $expected;
+
+    /**
+     * @var ComparatorInterface
+     */
+    private $comparator;
+
+    /**
+     * @var int
+     */
+    private $flags;
+
+    final protected function __construct(ComparatorInterface $comparator, array $expected, int $flags)
+    {
+        $this->comparator = $comparator;
+        $this->expected = $expected;
+        $this->flags = $flags;
+    }
 
     /**
      * Returns an instance of ComparatorInterface which implements comparison operator.
      */
-    #[\Override]
     final public function getComparator(): ComparatorInterface
     {
         return $this->comparator;
@@ -42,7 +62,6 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
     /**
      * Returns a string representation of the constraint.
      */
-    #[\Override]
     final public function toString(): string
     {
         return sprintf(
@@ -61,11 +80,13 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
      * a boolean value instead: true in case of success, false in case of a
      * failure.
      *
+     * @param mixed $other
+     *
      * @throws ExpectationFailedException
+     * @throws InvalidArgumentException
      * @throws CircularDependencyException
      */
-    #[\Override]
-    final public function evaluate(mixed $other, string $description = '', bool $returnResult = false): ?bool
+    final public function evaluate($other, string $description = '', bool $returnResult = false): ?bool
     {
         $success = $this->matches($other);
 
@@ -116,7 +137,6 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
      * @param Operator $operator the $operator of the expression
      * @param mixed    $role     role of $this constraint in the $operator expression
      */
-    #[\Override]
     final protected function toStringInContext(Operator $operator, $role): string
     {
         if ($operator instanceof LogicalNot) {
@@ -135,7 +155,6 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
      *
      * @param mixed $other value or object to evaluate
      */
-    #[\Override]
     final protected function matches($other): bool
     {
         if (!$this->supports($other)) {
@@ -150,7 +169,7 @@ abstract class AbstractKsortedConstraint extends Constraint implements Comparato
      *
      * @psalm-assert-if-true array $other
      */
-    final protected function supports(mixed $other): bool
+    final protected function supports($other): bool
     {
         return is_array($other);
     }
