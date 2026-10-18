@@ -10,17 +10,22 @@
 
 namespace Tailors\PHPUnit\Arrays;
 
+use Tailors\PHPUnit\Result\ResultInterface;
+
 /**
- * @internal This trait is not covered by the backward compatibility promise
+ * @internal This class is not covered by the backward compatibility promise
  *
  * @psalm-internal Tailors\PHPUnit
  */
-trait ValidateExpectationsTrait
+final class ExpectedKsortedArray extends AbstractKsortedArray implements ResultInterface
 {
     /**
-     * @psalm-suppress UnusedParam
+     * @psalm-mutation-free
      */
-    protected static function validateExpectations(array $expected, int $argument, int $distance = 1): void {}
+    public function actual(): bool
+    {
+        return false;
+    }
 }
 
 // vim: syntax=php sw=4 ts=4 et:
