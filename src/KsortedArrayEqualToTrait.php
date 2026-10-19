@@ -30,7 +30,6 @@ trait KsortedArrayEqualToTrait
      * @param array  $expected expected array
      * @param mixed  $actual   actual value
      * @param string $message  optional failure message
-     * @param int    $flags    optional flags passed to ksort()
      *
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -38,10 +37,9 @@ trait KsortedArrayEqualToTrait
     public static function assertKsortedArrayEqualTo(
         array $expected,
         mixed $actual,
-        string $message = '',
-        int $flags = SORT_REGULAR
+        string $message = ''
     ): void {
-        self::assertThat($actual, self::ksortedArrayEqualTo($expected, $flags), $message);
+        self::assertThat($actual, self::ksortedArrayEqualTo($expected), $message);
     }
 
     /**
@@ -50,7 +48,6 @@ trait KsortedArrayEqualToTrait
      * @param array  $expected expected array
      * @param mixed  $actual   actual value
      * @param string $message  optional failure message
-     * @param int    $flags    optional flags passed to ksort()
      *
      * @throws ExpectationFailedException
      * @throws InvalidArgumentException
@@ -58,23 +55,21 @@ trait KsortedArrayEqualToTrait
     public static function assertNotKsortedArrayEqualTo(
         array $expected,
         mixed $actual,
-        string $message = '',
-        int $flags = SORT_REGULAR
+        string $message = ''
     ): void {
-        self::assertThat($actual, new LogicalNot(self::ksortedArrayEqualTo($expected, $flags)), $message);
+        self::assertThat($actual, new LogicalNot(self::ksortedArrayEqualTo($expected)), $message);
     }
 
     /**
      * Compares selected *$actual* with *$expected* array after key-sorting both sides.
      *
      * @param array $expected expected array
-     * @param int   $flags    optional flags passed to ksort()
      *
      * @throws InvalidArgumentException
      */
-    public static function ksortedArrayEqualTo(array $expected, int $flags = SORT_REGULAR): KsortedArrayEqualTo
+    public static function ksortedArrayEqualTo(array $expected): KsortedArrayEqualTo
     {
-        return KsortedArrayEqualTo::create($expected, $flags);
+        return KsortedArrayEqualTo::create($expected);
     }
 }
 

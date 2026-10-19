@@ -69,10 +69,8 @@ final class KsortedArrayEqualToTest extends KsortedConstraintTestCase
         })();
 
         foreach ($cases as $key => $case) {
-            $ctorArgs = array_key_exists('flags', $case) ? [$case['expect'], $case['flags']] : [$case['expect']];
-
             yield $key => [
-                'ctorArgs' => $ctorArgs,
+                'ctorArgs' => [$case['expect']],
                 'actual'   => $case['actual'],
             ];
         }
@@ -96,10 +94,8 @@ final class KsortedArrayEqualToTest extends KsortedConstraintTestCase
         })();
 
         foreach ($cases as $key => $case) {
-            $ctorArgs = array_key_exists('flags', $case) ? [$case['expect'], $case['flags']] : [$case['expect']];
-
             yield $key => [
-                'ctorArgs' => $ctorArgs,
+                'ctorArgs' => [$case['expect']],
                 'actual'   => $case['actual'],
                 'message'  => self::message($case['string']),
             ];
@@ -123,10 +119,8 @@ final class KsortedArrayEqualToTest extends KsortedConstraintTestCase
         })();
 
         foreach ($cases as $key => $case) {
-            $ctorArgs = array_key_exists('flags', $case) ? [$case['expect'], $case['flags']] : [$case['expect']];
-
             yield $key => [
-                'ctorArgs' => $ctorArgs,
+                'ctorArgs' => [$case['expect']],
                 'actual'   => $case['actual'],
             ];
         }
@@ -150,10 +144,8 @@ final class KsortedArrayEqualToTest extends KsortedConstraintTestCase
         })();
 
         foreach ($cases as $key => $case) {
-            $ctorArgs = array_key_exists('flags', $case) ? [$case['expect'], $case['flags']] : [$case['expect']];
-
             yield $key => [
-                'ctorArgs' => $ctorArgs,
+                'ctorArgs' => [$case['expect']],
                 'actual'   => $case['actual'],
                 'message'  => self::message($case['string'], true),
             ];
